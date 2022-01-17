@@ -1,14 +1,14 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import './index.css'
-import App from './App'
 import { BrowserRouter } from 'react-router-dom'
+import './styles/index.css'
+import App from './App.jsx'
 
 ReactDOM.render(
-  <React.StrictMode>
-    <BrowserRouter>
+  <BrowserRouter>
+    <React.StrictMode>
       <App />
-    </BrowserRouter>,
-  </React.StrictMode>,
+    </React.StrictMode>
+  </BrowserRouter>,
   document.getElementById('root')
 )
