@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-
 const randColour = () =>
     ["green", "red", "blue", "yellow"][Math.floor(Math.random() * 4)];
 
@@ -8,24 +7,29 @@ function Header() {
         <header
             className="header"
             // @ts-ignore
-            style={{ ["--border-colour"]: `var(--${randColour()})` }}
+            style={{ "--border-colour": `var(--${randColour()})` }}
         >
-            <div className="header__logo" style={{ color: `var(--${randColour()})` }}>
-                Hoxbay
-            </div>
+            <Link to={"/"}>
+                <div className="header__logo" style={{ color: `var(--${randColour()})` }}>
+                    Hoxbay
+                </div>
+            </Link>
             <nav className="header__nav">
                 <ul>
                     <li>
-                        <Link to={'/home'} >Home</Link>
+                        <Link to='/products'>Home</Link>
+
                     </li>
                     <li>
-                        <Link to={'/Categories'} > Categories </Link>
+                        <Link to='/categories'>Categories</Link>
+
                     </li>
                     <li>
-                        <Link to={'/Basket'} > Basket </Link>
+                        <Link to='/basket'>Basket</Link>
 
                     </li>
                 </ul>
+
             </nav>
         </header>
     );

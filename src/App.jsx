@@ -1,38 +1,41 @@
-import { useState } from 'react'
-import { Route, Routes } from 'react-router-dom'
 import Header from './components/Header'
-import Home from './pages/Home'
-import Categories from './pages/Categories'
+// @ts-ignore
+import { Navigate, Route, Routes } from 'react-router-dom'
 import Basket from './pages/Basket'
-import SingleProduct from './pages/SingleProduct'
-import Electronics from './pages/categories/Electronics'
-import Jewelery from './pages/categories/Jewelery'
-import MenClothing from './pages/categories/MenClothing'
-import WomenClothing from './pages/categories/WomenClothing'
-import './styles/index.css'
-
+import Categories from './pages/Categories'
+import ProductDetail from './pages/ProductDetail'
+import ProductsPage from './pages/Products'
+import CategoryDetail from './pages/CategoryDetail'
+import { useState } from 'react'
+import NotFound from './pages/NotFound'
 
 function App() {
 
+  const [items, setItems] = useState([])
+
+  const [cart, setCart] = useState([])
+
+  function addToCart(item) {
+    const updated = [...cart, item]
+    item.quantity = 1
+    setCart(updated)
+  }
+
   return (
-    <div className="App">
-
+    <>
       <Header />
-
-      <Routes>
-
-        <Route path='/home' element={<Home />} />
-        <Route path='/home/:id' element={<SingleProduct />} />
-        <Route path='/categories' element={<Categories />} />
-        <Route path='/categories/:id' element={<Electronics />} />
-        <Route path='/categories/:id' element={<Jewelery />} />
-        <Route path='/categories/:id' element={<MenClothing />} />
-        <Route path='/categories/:id' element={<WomenClothing />} />
-        <Route path='/basket' element={<Basket />} />
-
-      </Routes>
-
-    </div>
+      <main>
+        <Routes>
+          <Route index element={<Navigate replace to='/products' />} />
+          <Route path='/products' element={<ProductsPage items={items} setItems={setItems} />} />
+          <Route path='/categories' element={<Categories />} />
+          <Route path='/basket' element={<Basket cart={cart} setCart={setCart} />} />
+          <Route path='/products/:id' element={<ProductDetail addToCart={addToCart} />} />
+          <Route path='/categories/:id' element={<CategoryDetail items={items} />} />
+          <Route path='*' element={<NotFound />} />
+        </Routes>
+      </main>
+    </>
   )
 }
 
